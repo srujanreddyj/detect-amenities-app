@@ -4,7 +4,7 @@ import sys
 from flask import Flask, request, json, jsonify, render_template
 from flask import flash
 import argparse
-import os
+import os, requests
 import platform
 import shutil
 import time
@@ -31,7 +31,18 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-weights = 'best.pt' if len(sys.argv) == 1 else sys.argv[1]
+#weights = 'best.pt' if len(sys.argv) == 1 else sys.argv[1]
+MODEL_URL = 'https://github.com/srujanreddyj/detect-amenities-app/releases/download/v1.0/best.pt'
+
+path_to_model = os.path.join('models', 'model.pth')
+if not os.path.exists(path_to_model):
+    print('done!\nmodel weights were not found, downloading them...')
+    os.makedirs(os.path.join('models'), exist_ok=True)
+    filename = Path(path_to_model)
+    r = requests.get(MODEL_URL)
+    filename.write_bytes(r.content)
+
+weights = 'models/best.pt' if len(sys.argv) == 1 else sys.argv[1]
 device_number = '' if len(sys.argv) <=2  else sys.argv[2]
 device = torch_utils.select_device(device_number)
 model = attempt_load(weights, map_location=device)  # load FP32 model
