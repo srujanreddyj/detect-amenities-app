@@ -14,6 +14,7 @@ import cv2
 import torch
 import torch.backends.cudnn as cudnn
 from numpy import random
+from fastai.imports import Path
 
 from models.experimental import attempt_load
 from utils.datasets import LoadStreams, LoadImages
@@ -34,15 +35,15 @@ def allowed_file(filename):
 #weights = 'best.pt' if len(sys.argv) == 1 else sys.argv[1]
 MODEL_URL = 'https://github.com/srujanreddyj/detect-amenities-app/releases/download/v1.0/best.pt'
 
-path_to_model = os.path.join('models', 'model.pth')
+path_to_model = os.path.join('exp_run', 'best.pt')
 if not os.path.exists(path_to_model):
     print('done!\nmodel weights were not found, downloading them...')
-    os.makedirs(os.path.join('models'), exist_ok=True)
+    os.makedirs(os.path.join('exp_run'), exist_ok=True)
     filename = Path(path_to_model)
     r = requests.get(MODEL_URL)
     filename.write_bytes(r.content)
 
-weights = 'models/best.pt' if len(sys.argv) == 1 else sys.argv[1]
+weights = 'exp_run/best.pt' if len(sys.argv) == 1 else sys.argv[1]
 device_number = '' if len(sys.argv) <=2  else sys.argv[2]
 device = torch_utils.select_device(device_number)
 model = attempt_load(weights, map_location=device)  # load FP32 model
