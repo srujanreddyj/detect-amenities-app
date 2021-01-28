@@ -40,8 +40,10 @@ if not os.path.exists(path_to_model):
     print('done!\nmodel weights were not found, downloading them...')
     os.makedirs(os.path.join('exp_run'), exist_ok=True)
     filename = Path(path_to_model)
-    r = requests.get(MODEL_URL)
-    filename.write_bytes(r.content)
+    #r = requests.get(MODEL_URL)
+    r = requests.get(MODEL_URL, allow_redirects=True)
+    #filename.write_bytes(r.content)
+    open(filename, 'wb').write(r.content)
 
 weights = 'exp_run/best.pt' if len(sys.argv) == 1 else sys.argv[1]
 device_number = 'cpu' #if len(sys.argv) <=2  else sys.argv[2]
