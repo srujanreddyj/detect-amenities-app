@@ -44,7 +44,7 @@ if not os.path.exists(path_to_model):
     filename.write_bytes(r.content)
 
 weights = 'exp_run/best.pt' if len(sys.argv) == 1 else sys.argv[1]
-device_number = '' if len(sys.argv) <=2  else sys.argv[2]
+device_number = 0 #if len(sys.argv) <=2  else sys.argv[2]
 device = torch_utils.select_device(device_number)
 model = attempt_load(weights, map_location=device)  # load FP32 model
 UPLOAD_FOLDER = "inference/images/"
