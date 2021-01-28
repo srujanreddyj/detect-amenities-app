@@ -227,7 +227,7 @@ def upload_predict():
 
 if __name__ == '__main__':
 
-    app.run(port=12000, debug=True, use_reloader=True, use_debugger=True)
+    app.run(debug=True, use_reloader=True, use_debugger=True)
 
 
 
