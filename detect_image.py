@@ -46,8 +46,17 @@ if not os.path.exists(path_to_model):
     #filename.write_bytes(r.content)
     #open(filename, 'wb').write(r.content)
     
-    out_filepath = path_to_model    
-    filename = wget.download(MODEL_URL, out=out_filepath)     
+    #out_filepath = path_to_model    
+    #filename = wget.download(MODEL_URL, out=out_filepath)     
+    filename = 'best.pt'
+    file_path = path_to_model
+    r = requests.get(MODEL_URL, stream=True, allow_redirects=True)
+    if r.ok:
+        print("saving to", os.path.abspath(file_path))
+        with open(file_path, 'wb') as f:
+            f.write(r.content)
+    else:  # HTTP status code 4XX/5XX
+        print("Download failed: status code {}\n{}".format(r.status_code, r.text))
      
         
 weights = 'exp_run/best.pt' if len(sys.argv) == 1 else sys.argv[1]
