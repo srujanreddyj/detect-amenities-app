@@ -16,6 +16,7 @@ Flask
 gunicorn
 requests
 opencv-python-headless==4.2.0.32
+wget
 
 #https://download.pytorch.org/whl/cpu/torch-1.6.0%2Bcpu-cp37-cp37m-linux_x86_64.whl
 https://download.pytorch.org/whl/cpu/torch-1.7.0%2Bcpu-cp38-cp38-linux_x86_64.whl
