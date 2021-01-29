@@ -40,15 +40,16 @@ path_to_model = os.path.join('exp_run', 'best.pt')
 if not os.path.exists(path_to_model):
     print('done!\nmodel weights were not found, downloading them...')
     os.makedirs(os.path.join('exp_run'), exist_ok=True)
-    filename = Path(path_to_model)
+    #filename = Path(path_to_model)
     #r = requests.get(MODEL_URL)
     #r = requests.get(MODEL_URL, allow_redirects=True)
     #filename.write_bytes(r.content)
     #open(filename, 'wb').write(r.content)
     
-    out_filepath = filename    
-    filename = wget.download(MODEL_URL, out=out_filepath)
-
+    out_filepath = path_to_model    
+    filename = wget.download(MODEL_URL, out=out_filepath)     
+     
+        
 weights = 'exp_run/best.pt' if len(sys.argv) == 1 else sys.argv[1]
 device_number = 'cpu' #if len(sys.argv) <=2  else sys.argv[2]
 device = torch_utils.select_device(device_number)
