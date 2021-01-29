@@ -1,6 +1,6 @@
 
 import sys
-
+import wget
 from flask import Flask, request, json, jsonify, render_template
 from flask import flash
 import argparse
