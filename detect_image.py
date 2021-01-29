@@ -34,6 +34,7 @@ def allowed_file(filename):
 
 #weights = 'best.pt' if len(sys.argv) == 1 else sys.argv[1]
 MODEL_URL = 'https://github.com/srujanreddyj/detect-amenities-app/releases/download/v1.0/best.pt'
+os.makedirs(os.path.join('exp_run'), exist_ok=True)
 
 path_to_model = os.path.join('exp_run', 'best.pt')
 if not os.path.exists(path_to_model):
@@ -41,9 +42,12 @@ if not os.path.exists(path_to_model):
     os.makedirs(os.path.join('exp_run'), exist_ok=True)
     filename = Path(path_to_model)
     #r = requests.get(MODEL_URL)
-    r = requests.get(MODEL_URL, allow_redirects=True)
+    #r = requests.get(MODEL_URL, allow_redirects=True)
     #filename.write_bytes(r.content)
-    open(filename, 'wb').write(r.content)
+    #open(filename, 'wb').write(r.content)
+    
+    out_filepath = filename    
+    filename = wget.download(MODEL_URL, out=out_filepath)
 
 weights = 'exp_run/best.pt' if len(sys.argv) == 1 else sys.argv[1]
 device_number = 'cpu' #if len(sys.argv) <=2  else sys.argv[2]
